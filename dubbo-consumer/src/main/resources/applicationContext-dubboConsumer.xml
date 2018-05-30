@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="hello-demo"/>
+    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+    <dubbo:protocol name="dubbo" port="20880"/>
+    <!-- 该接口在服务端和消费端都有，优化前-->
+    <dubbo:reference id="helloService" interface="com.consumer.service.HelloService"/>
+
+    <!-- 接口单独配置，防止在消费端和服务端都存在接口，优化后 -->
+    <dubbo:reference id="msgService" interface="com.api.service.MsgService"/>
+</beans>
